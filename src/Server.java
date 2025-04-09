@@ -32,7 +32,22 @@ public class Server extends Thread
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        }
+        finally
+        {
+            synchronized (writers)
+            {
+                writers.removeIf(writer -> writer.checkError());
+            }
+            try
+            {
+                socket.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
