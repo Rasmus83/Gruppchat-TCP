@@ -6,7 +6,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 
 public class Client extends JFrame
 {
