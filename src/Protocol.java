@@ -7,15 +7,19 @@ public class Protocol
 
         else if(receivedData.startsWith("HERE:"))
         {
-            if(!System.getProperty("user.name").equals(receivedData.substring(5)))
+            if(!client.users.contains(receivedData.substring(5)))
             {
-                client.textArea2.append(receivedData.substring(5) + "\n");
+                client.textArea2.append(receivedData.substring(5));
+                client.users.add(receivedData.substring(5));
             }
         }
         else if(receivedData.startsWith("LEAVE:"))
         {
             String user = receivedData.substring(6);
             StringBuilder newTextArea = new StringBuilder();
+
+            if(client.users.contains(user))
+                client.users.remove(user);
 
             for(String s : client.textArea2.getText().split("\n"))
                 if(!s.trim().equals(user) && !s.trim().isEmpty())
@@ -25,10 +29,14 @@ public class Protocol
         }
         else if(receivedData.startsWith("JOIN:"))
         {
-            if(System.getProperty("user.name").equals(receivedData.substring(5).trim()))
-                client.textArea2.append(receivedData.substring(5) + "\n");
+            if(client.username.equals(receivedData.substring(5).trim()))
+            {
+                client.textArea2.append(receivedData.substring(5));
+                if(!client.users.contains(receivedData.substring(5).trim()))
+                    client.users.add(receivedData.substring(5));
+            }
 
-            String message = "HERE:" + System.getProperty("user.name");
+            String message = "HERE:" + client.username;
 
             client.out.println(message);
         }
