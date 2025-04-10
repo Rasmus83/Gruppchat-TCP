@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Client extends JFrame
 {
@@ -11,6 +13,9 @@ public class Client extends JFrame
     Socket socket;
     PrintWriter out;
     BufferedReader in;
+
+    String username;
+    Set<String> users;
 
     JPanel panel;
     JButton button;
@@ -21,6 +26,11 @@ public class Client extends JFrame
 
     public Client(int port, String address) throws IOException
     {
+        username = JOptionPane.showInputDialog("Enter your user name");
+        if(username == null)
+            System.exit(0);
+        users = new HashSet<String>();
+
         this.port = port;
         this.address = address;
 
@@ -32,14 +42,14 @@ public class Client extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        setTitle("Chatt " + System.getProperty("user.name"));
+        setTitle("Chatt " + username);
 
         addWindowListener(new WindowAdapter()
         {
             @Override
             public void windowClosing(WindowEvent e)
             {
-                String message = "LEAVE:" + System.getProperty("user.name");
+                String message = "LEAVE:" + username;
                 out.println(message);
                 try
                 {
@@ -57,7 +67,7 @@ public class Client extends JFrame
         button = new JButton("Koppla ner");
         button.addActionListener(e ->
         {
-            String message = "LEAVE:" + System.getProperty("user.name");
+            String message = "LEAVE:" + username;
             out.println(message);
             try
             {
@@ -78,7 +88,7 @@ public class Client extends JFrame
             {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER)
                 {
-                    String message = "MSG:" + System.getProperty("user.name") + ": " + textField.getText();
+                    String message = "MSG:" + username + ": " + textField.getText();
                     out.println(message);
                     textField.setText("");
                 }
@@ -128,7 +138,7 @@ public class Client extends JFrame
         Client window = new Client(portNumber, args[1]);
         Protocol protocol = new Protocol();
 
-        String message = "JOIN:" + System.getProperty("user.name");
+        String message = "JOIN:" + window.username;
 
         window.out.println(message);
 
