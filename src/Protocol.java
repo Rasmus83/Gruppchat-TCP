@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 public class Protocol
 {
     public void processInput(String receivedData, Client client)
