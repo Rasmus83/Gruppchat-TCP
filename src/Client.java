@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 
@@ -37,12 +34,8 @@ public class Client extends JFrame
         setLayout(new BorderLayout());
         setTitle("Chatt " + System.getProperty("user.name"));
 
-        addWindowListener(new WindowListener()
+        addWindowListener(new WindowAdapter()
         {
-            @Override
-            public void windowOpened(WindowEvent e)
-            {}
-
             @Override
             public void windowClosing(WindowEvent e)
             {
@@ -57,26 +50,6 @@ public class Client extends JFrame
                     ex.printStackTrace();
                 }
             }
-
-            @Override
-            public void windowClosed(WindowEvent e)
-            {}
-
-            @Override
-            public void windowIconified(WindowEvent e)
-            {}
-
-            @Override
-            public void windowDeiconified(WindowEvent e)
-            {}
-
-            @Override
-            public void windowActivated(WindowEvent e)
-            {}
-
-            @Override
-            public void windowDeactivated(WindowEvent e)
-            {}
         });
 
         panel = new JPanel(new BorderLayout());
