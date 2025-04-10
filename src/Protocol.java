@@ -9,7 +9,7 @@ public class Protocol
         {
             if(!client.users.contains(receivedData.substring(5)))
             {
-                client.textArea2.append(receivedData.substring(5));
+                client.textArea2.append(receivedData.substring(5) + "\n");
                 client.users.add(receivedData.substring(5));
             }
         }
@@ -31,7 +31,7 @@ public class Protocol
         {
             if(client.username.equals(receivedData.substring(5).trim()))
             {
-                client.textArea2.append(receivedData.substring(5));
+                client.textArea2.append(receivedData.substring(5) + "\n");
                 if(!client.users.contains(receivedData.substring(5).trim()))
                     client.users.add(receivedData.substring(5));
             }
